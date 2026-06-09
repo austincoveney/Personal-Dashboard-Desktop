@@ -1,0 +1,106 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Austin's Deck",
+  "version": "0.1.0",
+  "identifier": "uk.digigrow.austins-deck",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "withGlobalTauri": false,
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data: asset: http://asset.localhost; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost"
+    },
+    "windows": [
+      {
+        "label": "glance",
+        "title": "Austin's Deck",
+        "width": 380,
+        "height": 560,
+        "resizable": false,
+        "visible": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "center": true,
+        "skipTaskbar": false
+      },
+      {
+        "label": "morning",
+        "title": "Morning check-in",
+        "width": 440,
+        "height": 680,
+        "resizable": false,
+        "visible": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "center": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true
+      },
+      {
+        "label": "capture",
+        "title": "Quick capture",
+        "width": 400,
+        "height": 440,
+        "resizable": false,
+        "visible": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "center": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true
+      },
+      {
+        "label": "settings",
+        "title": "Settings",
+        "width": 460,
+        "height": 600,
+        "resizable": false,
+        "visible": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "center": true,
+        "skipTaskbar": true
+      },
+      {
+        "label": "widget",
+        "title": "Deck widget",
+        "width": 240,
+        "height": 156,
+        "resizable": false,
+        "visible": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true
+      }
+    ]
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Productivity",
+    "shortDescription": "Personal Dashboard desktop companion",
+    "longDescription": "Tray companion for Austin's Personal Dashboard: morning check-in, quick capture, and a glance widget. Connects to the live dashboard via the agent API.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser"
+      }
+    }
+  }
+}

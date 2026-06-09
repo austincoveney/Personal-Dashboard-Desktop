@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/*
+  Personal Dashboard Desktop — same Identity Anchor as the web app.
+  Warm charcoal ground (hue ~70, low chroma), ember/amber accent, mint positive.
+  Fraunces (serif headings) / Hanken Grotesk (sans) / JetBrains Mono (data).
+*/
+
+:root {
+  --background: oklch(0.169 0.011 72);
+  --foreground: oklch(0.928 0.012 82);
+  --surface: oklch(0.205 0.013 73);
+  --surface-2: oklch(0.235 0.015 73);
+  --card: oklch(0.205 0.013 73);
+  --card-foreground: oklch(0.928 0.012 82);
+  --primary: oklch(0.752 0.142 64);
+  --primary-foreground: oklch(0.21 0.03 64);
+  --muted: oklch(0.255 0.012 73);
+  --muted-foreground: oklch(0.704 0.018 76);
+  --accent: oklch(0.262 0.016 70);
+  --accent-foreground: oklch(0.945 0.012 82);
+  --mint: oklch(0.82 0.082 172);
+  --mint-foreground: oklch(0.22 0.03 172);
+  --success: oklch(0.72 0.082 152);
+  --warning: oklch(0.79 0.13 82);
+  --destructive: oklch(0.626 0.17 26);
+  --border: oklch(0.95 0.01 82 / 8%);
+  --border-strong: oklch(0.95 0.01 82 / 14%);
+  --input: oklch(0.95 0.01 82 / 10%);
+  --ring: oklch(0.752 0.142 64);
+  --radius: 0.65rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-mint: var(--mint);
+  --color-mint-foreground: var(--mint-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  html {
+    color-scheme: dark;
+    overflow: hidden;
+  }
+  body {
+    margin: 0;
+    background-color: transparent;
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    user-select: none;
+    cursor: default;
+    overflow: hidden;
+  }
+  input,
+  textarea {
+    user-select: text;
+  }
+  ::selection {
+    background-color: oklch(0.752 0.142 64 / 30%);
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--border-strong);
+    border-radius: 9999px;
+  }
+}
+
+/* Frameless-window chrome: the whole shell rounds + sits on a hairline border. */
+@utility app-shell {
+  height: 100%;
+  background-color: var(--background);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+@utility font-display {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Drag region for frameless windows (the title strip). */
+@utility drag {
+  -webkit-app-region: drag;
+  app-region: drag;
+}
+@utility no-drag {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+
+@utility glow-amber {
+  box-shadow:
+    0 0 0 1px oklch(0.752 0.142 64 / 0.18),
+    0 8px 30px -12px oklch(0.752 0.142 64 / 0.4);
+}
+
+/* amber -> mint hairline, the signature accent rule */
+@utility accent-rule {
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    var(--primary) 18%,
+    var(--mint) 82%,
+    transparent
+  );
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    transition-duration: 0.01ms;
+  }
+}
