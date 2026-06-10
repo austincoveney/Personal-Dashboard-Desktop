@@ -43,6 +43,15 @@ export interface HabitSummary {
   doneToday: boolean;
 }
 
+export interface DayBlock {
+  start: string;
+  end: string | null;
+  title: string;
+  type: 'event' | 'focus' | 'break' | 'task' | 'admin';
+  note: string | null;
+  taskId: number | null;
+}
+
 export interface AgentContext {
   date: string;
   latestMood: MoodSummary | null;
@@ -50,7 +59,7 @@ export interface AgentContext {
   latestSleep: SleepSummary | null;
   openTasks: TaskSummary[];
   achievementsToday: { id: number; title: string; achievedOn: string }[];
-  dayPlan: { planDate: string; narrative: string | null; blocks: unknown[] } | null;
+  dayPlan: { planDate: string; narrative: string | null; blocks: DayBlock[] } | null;
   journalToday: { entryDate: string; body: string } | null;
   promptsToday: { id: number; entryDate: string; kind: string; prompt: string; answer: string | null }[];
   now: { statement: string; updatedAt: string } | null;
