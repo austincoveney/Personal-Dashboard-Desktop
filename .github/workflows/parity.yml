@@ -1,0 +1,14 @@
+name: parity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate parity.json vs canonical manifest
+        run: node scripts/parity-check.mjs

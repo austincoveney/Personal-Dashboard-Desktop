@@ -1,0 +1,18 @@
+{
+  "builtAgainstManifest": "1.0.0",
+  "features": {
+    "my-day": "partial",
+    "mood": "partial",
+    "tasks": "partial",
+    "journal": "none",
+    "life": "partial",
+    "fitness": "none",
+    "diet": "none",
+    "habits": "partial",
+    "guitar": "none",
+    "notes": "partial",
+    "achievements": "none",
+    "sleep": "partial",
+    "fuel": "none"
+  }
+}
