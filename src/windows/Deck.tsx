@@ -9,6 +9,7 @@ import { Mood } from '@/windows/sections/Mood';
 import { Habits } from '@/windows/sections/Habits';
 import { Sleep } from '@/windows/sections/Sleep';
 import { Tasks } from '@/windows/sections/Tasks';
+import { Notes } from '@/windows/sections/Notes';
 import { Placeholder } from '@/windows/sections/Placeholder';
 
 function sectionView(id: SectionId): ReactElement {
@@ -23,6 +24,8 @@ function sectionView(id: SectionId): ReactElement {
       return <Tasks />;
     case 'sleep':
       return <Sleep />;
+    case 'notes':
+      return <Notes />;
     default:
       return <Placeholder title={SECTIONS.find((s) => s.id === id)?.label ?? ''} />;
   }

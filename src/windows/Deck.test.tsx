@@ -19,8 +19,8 @@ describe('Deck', () => {
 
   it('switches to a placeholder section when its rail item is clicked', async () => {
     render(<Deck />);
-    await userEvent.click(screen.getByRole('button', { name: 'Notes' }));
-    expect(screen.getByText('Notes', { selector: 'p.font-display' })).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: 'Life' }));
+    expect(screen.getByText('Life', { selector: 'p.font-display' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: /Austin\./ })).not.toBeInTheDocument();
   });
 
@@ -46,5 +46,11 @@ describe('Deck', () => {
     render(<Deck />);
     await userEvent.click(screen.getByRole('button', { name: 'Sleep' }));
     expect(screen.getByRole('heading', { name: 'Log sleep' })).toBeInTheDocument();
+  });
+
+  it('renders the Notes section when Notes is selected', async () => {
+    render(<Deck />);
+    await userEvent.click(screen.getByRole('button', { name: 'Notes' }));
+    expect(screen.getByRole('heading', { name: 'Notes' })).toBeInTheDocument();
   });
 });
