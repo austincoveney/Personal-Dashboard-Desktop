@@ -69,7 +69,12 @@ export function Mood() {
           className="h-9 w-full rounded-md border border-input bg-surface/50 px-3 text-sm outline-none focus:border-border-strong"
         />
         {err && <p className="text-xs text-destructive">{err}</p>}
-        <Button onClick={submit} disabled={busy || valence === null} size="sm" className="w-full">
+        <Button
+          onClick={submit}
+          disabled={busy || valence === null || energy === null}
+          size="sm"
+          className="w-full"
+        >
           <Check className="size-3.5" /> {busy ? 'Saving…' : 'Log mood'}
         </Button>
 
@@ -103,7 +108,7 @@ export function Mood() {
                 </p>
               )}
             </div>
-            <div className="flex items-end gap-1">
+            <div className="flex items-end gap-1" aria-hidden="true">
               {moodsOldestFirst(history).map((mood, i) => (
                 <span
                   key={mood.loggedAt ?? i}
