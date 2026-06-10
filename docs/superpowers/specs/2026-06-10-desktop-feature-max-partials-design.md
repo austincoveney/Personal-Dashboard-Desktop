@@ -32,14 +32,16 @@ journal, fitness, diet, guitar, achievements, fuel — are a separate later effo
   open-tasks list), then **Mood, Tasks, Notes, Sleep, Habits, Life**.
 - Section routing is **React state inside the one window**, not new windows. Capture (global
   hotkey), Morning, Settings, and Widget windows are untouched.
-- The current Glance footer actions (open dashboard, refresh, settings) move to the rail foot;
-  Capture stays a prominent action.
-- **Fixed Deck size** (~560×620, each section scrolls) — no per-section window resize, to avoid
+- The current Glance footer actions (open dashboard, refresh, settings) stay inside the **Today**
+  section for the shell increment; Capture stays a prominent action. (Promoting them to global
+  rail-foot actions is deferred polish — settings is already reachable from the system-tray menu.)
+- **Fixed Deck size** (~580×640, each section scrolls) — no per-section window resize, to avoid
   jank. Dynamic resize is possible later polish, explicitly out of scope here.
-- Agent client (`src/lib/agent.ts`) gains a generic read/mutate layer for `GET`/`PATCH`/`DELETE`
-  (the internal `request()` already supports PATCH). Feature sections call it.
 - Empty section placeholders ship in this PR so the rail is complete; features fill in per
   increment.
+- **Agent client read/mutate layer** (`src/lib/agent.ts` generic `GET`/`PATCH`/`DELETE`; the
+  internal `request()` already supports them) is added with the **first increment that needs a
+  new verb** (tasks), not the shell — YAGNI. The shell ships pure navigation scaffolding.
 
 ## B. Per-feature "full" surface + minimal web-API extension
 
