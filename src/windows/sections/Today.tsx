@@ -12,6 +12,8 @@ import {
 import type { ComponentType } from 'react';
 import { UpdateBanner } from '@/components/UpdateBanner';
 import { ParityBanner } from '@/components/ParityBanner';
+import { Agenda } from '@/windows/sections/Agenda';
+import { Wins } from '@/windows/sections/Wins';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/cn';
@@ -107,6 +109,17 @@ export function Today() {
               />
             </div>
 
+            <div className="space-y-2">
+              <div className="accent-rule" />
+              <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                Today&apos;s shape
+              </p>
+              <Agenda
+                narrative={data?.dayPlan?.narrative ?? null}
+                blocks={data?.dayPlan?.blocks ?? []}
+              />
+            </div>
+
             {data?.now?.statement && (
               <Card className="space-y-1 p-3">
                 <p className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
@@ -142,6 +155,13 @@ export function Today() {
 
             {data && data.openTasks.length === 0 && !loading && (
               <p className="py-2 text-center text-sm text-muted-foreground">Clear deck. Nice.</p>
+            )}
+
+            {data && data.achievementsToday.length > 0 && (
+              <div className="space-y-2">
+                <div className="accent-rule" />
+                <Wins wins={data.achievementsToday} />
+              </div>
             )}
           </>
         )}
