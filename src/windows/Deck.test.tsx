@@ -41,4 +41,10 @@ describe('Deck', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Tasks' }));
     expect(screen.getByRole('heading', { name: /Tasks/ })).toBeInTheDocument();
   });
+
+  it('renders the Sleep section when Sleep is selected', async () => {
+    render(<Deck />);
+    await userEvent.click(screen.getByRole('button', { name: 'Sleep' }));
+    expect(screen.getByRole('heading', { name: 'Log sleep' })).toBeInTheDocument();
+  });
 });

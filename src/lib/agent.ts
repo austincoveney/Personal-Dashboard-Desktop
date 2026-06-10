@@ -193,6 +193,8 @@ export const agent = {
     request<unknown>('/api/agent/mood', { method: 'POST', body: { source: 'self', ...input } }),
   logSleep: (input: SleepInput) =>
     request<unknown>('/api/agent/sleep', { method: 'POST', body: { source: 'self', ...input } }),
+  getSleepHistory: (limit = 14) => request<SleepSummary[]>(`/api/agent/sleep?limit=${limit}`),
+  deleteSleep: (id: number) => request<unknown>(`/api/agent/sleep/${id}`, { method: 'DELETE' }),
   addTask: (input: TaskInput) => request<unknown>('/api/agent/tasks', { method: 'POST', body: input }),
   updateTask: (id: number, patch: TaskPatch) =>
     request<unknown>(`/api/agent/tasks/${id}`, { method: 'PATCH', body: patch }),
