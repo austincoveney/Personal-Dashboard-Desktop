@@ -118,6 +118,20 @@ export interface TaskPatch {
   detail?: string | null;
 }
 
+export interface NoteSummary {
+  id: number;
+  title: string;
+  body: string;
+  pinned: boolean;
+  updatedAt: string;
+}
+
+export interface NotePatch {
+  title?: string;
+  body?: string;
+  pinned?: boolean;
+}
+
 export class AgentError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -200,6 +214,10 @@ export const agent = {
     request<unknown>(`/api/agent/tasks/${id}`, { method: 'PATCH', body: patch }),
   deleteTask: (id: number) => request<unknown>(`/api/agent/tasks/${id}`, { method: 'DELETE' }),
   addNote: (input: NoteInput) => request<unknown>('/api/agent/note', { method: 'POST', body: input }),
+  getNotes: () => request<NoteSummary[]>('/api/agent/note'),
+  updateNote: (id: number, patch: NotePatch) =>
+    request<unknown>(`/api/agent/note/${id}`, { method: 'PATCH', body: patch }),
+  deleteNote: (id: number) => request<unknown>(`/api/agent/note/${id}`, { method: 'DELETE' }),
   setNow: (statement: string) =>
     request<unknown>('/api/agent/now', { method: 'POST', body: { statement } }),
   addHighlight: (text: string, source?: string) =>
