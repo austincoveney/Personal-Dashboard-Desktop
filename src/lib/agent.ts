@@ -41,6 +41,12 @@ export interface HabitSummary {
   cadence: string;
   target: number | null;
   doneToday: boolean;
+  streak: number;
+}
+
+export interface HabitCheckinInput {
+  habitId: number;
+  done: boolean;
 }
 
 export interface DayBlock {
@@ -184,6 +190,8 @@ export const agent = {
     request<unknown>('/api/agent/now', { method: 'POST', body: { statement } }),
   addHighlight: (text: string, source?: string) =>
     request<unknown>('/api/agent/highlight', { method: 'POST', body: { text, source } }),
+  checkInHabit: (input: HabitCheckinInput) =>
+    request<unknown>('/api/agent/habit-checkin', { method: 'POST', body: input }),
 };
 
 export async function testConnection(): Promise<{ ok: boolean; message: string }> {
