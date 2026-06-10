@@ -7,14 +7,18 @@ import { useAgentContext } from '@/lib/use-context';
 export function Habits() {
   const { data, refresh } = useAgentContext();
   const [pending, setPending] = useState<number | null>(null);
+  const [err, setErr] = useState<string | null>(null);
   const habits = data?.habits ?? [];
   const doneCount = habits.filter((h) => h.doneToday).length;
 
   async function toggle(id: number, doneToday: boolean) {
     setPending(id);
+    setErr(null);
     try {
       await agent.checkInHabit({ habitId: id, done: !doneToday });
       await refresh();
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : 'Could not save');
     } finally {
       setPending(null);
     }
@@ -35,6 +39,8 @@ export function Habits() {
             )}
           </h1>
         </header>
+
+        {err && <p className="text-xs text-destructive">{err}</p>}
 
         {habits.length === 0 ? (
           <p className="text-sm text-muted-foreground">
