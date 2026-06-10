@@ -40,6 +40,16 @@ All in the Settings window:
 | Morning check-in | on | Show the boot prompt once per day. |
 | Quick-capture shortcut | `CommandOrControl+Alt+Space` | Global hotkey. Restart applies a change. |
 
+## Updates
+
+From **v0.2.0** the app keeps itself current: on launch (and via Settings → Check for updates) it checks the
+latest GitHub Release, and if a newer signed build is out it shows an **Install & restart** banner that
+applies it in place. Updates are minisign-signed and verified against a public key pinned in the app, so only
+releases built by CI are ever installed.
+
+> The first updater-enabled build is **v0.2.0**. If you installed an earlier version, install v0.2.0 once by
+> hand; after that it updates itself.
+
 ## Develop
 
 ```bash

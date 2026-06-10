@@ -67,7 +67,7 @@ numbers. Today: web is pre-1.0 (no SoT version constant yet); desktop is at the 
 
 ## COMPAT
 
-- **Desktop v0.1.1** targets the web agent contract as of **2026-06-09**: `GET /api/agent/context`
+- **Desktop v0.2.0** targets the web agent contract as of **2026-06-09**: `GET /api/agent/context`
   (incl. `moodHistory`, `latestSleep`) and writes `mood`, `sleep`, `note`, `tasks`, `now`, `highlight`.
   Web additions beyond this date are not yet surfaced in the desktop client.
 
@@ -79,5 +79,22 @@ numbers. Today: web is pre-1.0 (no SoT version constant yet); desktop is at the 
   append `?w=glance|morning|capture|settings|widget`.
 - The distributable `.exe`/`.msi` must be built on Windows (CI). The Rust shell also compiles on Linux for
   validation (`cd src-tauri && cargo build`).
+
+## Auto-update & signing (v0.2.0+)
+
+The app self-updates: on launch (and via Settings → Check for updates) it reads the latest GitHub Release's
+`latest.json`, and if a newer **minisign-signed** build exists it offers "Install & restart". So a normal
+release (push a `v*` tag) is all it takes for every install to pick up new features — no manual redownload.
+
+- Public key is pinned in `tauri.conf.json` → `plugins.updater.pubkey`.
+- Private signing key lives ONLY in GitHub Actions secrets `TAURI_SIGNING_PRIVATE_KEY` (+ empty
+  `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`) — already set. Backup at
+  `~/.claude/credentials/pdd-updater-private.key` (chmod 600, never commit).
+- **Do not rotate the signing key casually.** If the keypair changes, already-installed apps stop trusting
+  new updates and need a one-off manual reinstall. CI signs automatically when those secrets are present.
+- The repo is **public** so the updater fetches release assets anonymously. It contains no secrets (the agent
+  token is user-entered at runtime, never committed).
+- The build emits `latest.json` + `*.msi.zip` + `*.sig` as release assets; the `endpoints` in
+  `tauri.conf.json` point at `releases/latest/download/latest.json`.
 
 # === END ===
