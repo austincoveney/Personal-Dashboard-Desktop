@@ -109,6 +109,15 @@ export interface NoteInput {
   pinned?: boolean;
 }
 
+export interface TaskPatch {
+  title?: string;
+  status?: 'open' | 'in_progress' | 'done';
+  priority?: 'none' | 'low' | 'med' | 'high' | 'urgent';
+  focus?: boolean;
+  dueDate?: string | null;
+  detail?: string | null;
+}
+
 export class AgentError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -127,7 +136,7 @@ async function httpFetch(): Promise<typeof fetch> {
 }
 
 interface RequestOptions {
-  method?: 'GET' | 'POST' | 'PATCH';
+  method?: 'GET' | 'POST' | 'PATCH' | 'DELETE';
   body?: unknown;
   timeoutMs?: number;
 }
@@ -185,6 +194,9 @@ export const agent = {
   logSleep: (input: SleepInput) =>
     request<unknown>('/api/agent/sleep', { method: 'POST', body: { source: 'self', ...input } }),
   addTask: (input: TaskInput) => request<unknown>('/api/agent/tasks', { method: 'POST', body: input }),
+  updateTask: (id: number, patch: TaskPatch) =>
+    request<unknown>(`/api/agent/tasks/${id}`, { method: 'PATCH', body: patch }),
+  deleteTask: (id: number) => request<unknown>(`/api/agent/tasks/${id}`, { method: 'DELETE' }),
   addNote: (input: NoteInput) => request<unknown>('/api/agent/note', { method: 'POST', body: input }),
   setNow: (statement: string) =>
     request<unknown>('/api/agent/now', { method: 'POST', body: { statement } }),
