@@ -1,8 +1,8 @@
 {
-  "builtAgainstManifest": "1.0.1",
+  "builtAgainstManifest": "1.0.2",
   "features": {
     "my-day": "full",
-    "mood": "partial",
+    "mood": "full",
     "tasks": "partial",
     "journal": "none",
     "life": "partial",
