@@ -29,4 +29,10 @@ describe('Deck', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Mood' }));
     expect(screen.getByRole('heading', { name: 'Log a mood' })).toBeInTheDocument();
   });
+
+  it('renders the Habits section when Habits is selected', async () => {
+    render(<Deck />);
+    await userEvent.click(screen.getByRole('button', { name: 'Habits' }));
+    expect(screen.getByRole('heading', { name: /Habits/ })).toBeInTheDocument();
+  });
 });

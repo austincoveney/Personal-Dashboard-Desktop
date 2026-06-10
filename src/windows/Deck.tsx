@@ -6,6 +6,7 @@ import { registerShortcuts } from '@/lib/bootstrap';
 import { SECTIONS, type SectionId } from '@/lib/sections';
 import { Today } from '@/windows/sections/Today';
 import { Mood } from '@/windows/sections/Mood';
+import { Habits } from '@/windows/sections/Habits';
 import { Placeholder } from '@/windows/sections/Placeholder';
 
 function sectionView(id: SectionId): ReactElement {
@@ -14,6 +15,8 @@ function sectionView(id: SectionId): ReactElement {
       return <Today />;
     case 'mood':
       return <Mood />;
+    case 'habits':
+      return <Habits />;
     default:
       return <Placeholder title={SECTIONS.find((s) => s.id === id)?.label ?? ''} />;
   }
