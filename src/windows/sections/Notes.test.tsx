@@ -45,7 +45,7 @@ describe('Notes', () => {
     await screen.findByText('Groceries');
     await userEvent.click(screen.getByRole('button', { name: 'Edit Groceries' }));
     await userEvent.click(screen.getByRole('button', { name: 'Save' }));
-    expect(spy).toHaveBeenCalledWith(1, expect.objectContaining({ title: 'Groceries' }));
+    expect(spy).toHaveBeenCalledWith(1, { title: 'Groceries', body: 'milk, eggs' });
   });
 
   it('deletes a note', async () => {
