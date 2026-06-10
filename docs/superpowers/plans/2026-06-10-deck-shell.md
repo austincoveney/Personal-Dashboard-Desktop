@@ -132,7 +132,6 @@ describe('sections model', () => {
   it('gives every section a non-empty label and an icon', () => {
     for (const s of SECTIONS) {
       expect(s.label.length).toBeGreaterThan(0);
-      // lucide-react icons are forwardRef components (typeof === 'object'), not plain functions.
       expect(s.icon).toBeTruthy();
     }
   });
@@ -549,8 +548,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
-// Isolate the routing test from network + Tauri: stub the shortcut registration,
-// the context hook, and the two banners (which otherwise call loadSettings/fetch).
 vi.mock('@/lib/bootstrap', () => ({ registerShortcuts: vi.fn().mockResolvedValue(undefined) }));
 vi.mock('@/lib/use-context', () => ({
   useAgentContext: () => ({ data: null, error: null, loading: false, refresh: vi.fn() }),
