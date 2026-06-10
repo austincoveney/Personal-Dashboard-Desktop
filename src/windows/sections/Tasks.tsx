@@ -6,7 +6,7 @@ import { nextPriority, priorityTone } from '@/lib/tasks';
 import { useAgentContext } from '@/lib/use-context';
 
 export function Tasks() {
-  const { data, refresh } = useAgentContext();
+  const { data, error, refresh } = useAgentContext();
   const [title, setTitle] = useState('');
   const [pending, setPending] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
@@ -72,7 +72,7 @@ export function Tasks() {
           </button>
         </div>
 
-        {err && <p className="text-xs text-destructive">{err}</p>}
+        {(err || error) && <p className="text-xs text-destructive">{err ?? error}</p>}
 
         {tasks.length === 0 ? (
           <p className="py-2 text-center text-sm text-muted-foreground">Clear deck. Nice.</p>
@@ -88,6 +88,7 @@ export function Tasks() {
               >
                 <button
                   type="button"
+                  disabled={pending === t.id}
                   onClick={() => void run(t.id, () => agent.updateTask(t.id, { status: 'done' }))}
                   aria-label={`Complete ${t.title}`}
                   className="no-drag grid size-5 shrink-0 place-items-center rounded-full border border-border-strong text-transparent transition-colors hover:border-mint hover:text-mint"
@@ -102,6 +103,7 @@ export function Tasks() {
                 )}
                 <button
                   type="button"
+                  disabled={pending === t.id}
                   onClick={() =>
                     void run(t.id, () => agent.updateTask(t.id, { priority: nextPriority(t.priority) }))
                   }
@@ -115,6 +117,7 @@ export function Tasks() {
                 </button>
                 <button
                   type="button"
+                  disabled={pending === t.id}
                   onClick={() => void run(t.id, () => agent.updateTask(t.id, { focus: !t.focus }))}
                   aria-label={t.focus ? 'Unfocus' : 'Focus'}
                   aria-pressed={t.focus}
@@ -127,6 +130,7 @@ export function Tasks() {
                 </button>
                 <button
                   type="button"
+                  disabled={pending === t.id}
                   onClick={() => void run(t.id, () => agent.deleteTask(t.id))}
                   aria-label={`Delete ${t.title}`}
                   className="no-drag shrink-0 text-muted-foreground opacity-0 transition-opacity hover:text-destructive group-hover:opacity-100"
