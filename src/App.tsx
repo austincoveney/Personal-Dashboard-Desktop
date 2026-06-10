@@ -1,5 +1,5 @@
 import { currentScreen } from '@/lib/window';
-import { Glance } from '@/windows/Glance';
+import { Deck } from '@/windows/Deck';
 import { Morning } from '@/windows/Morning';
 import { Capture } from '@/windows/Capture';
 import { Settings } from '@/windows/Settings';
@@ -17,6 +17,6 @@ export function App() {
     case 'widget':
       return <Widget />;
     default:
-      return <Glance />;
+      return <Deck />;
   }
 }

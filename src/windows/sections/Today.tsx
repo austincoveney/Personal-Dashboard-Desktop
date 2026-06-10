@@ -10,11 +10,8 @@ import {
   Target,
 } from 'lucide-react';
 import type { ComponentType } from 'react';
-import { useEffect } from 'react';
-import { TitleBar } from '@/components/TitleBar';
 import { UpdateBanner } from '@/components/UpdateBanner';
 import { ParityBanner } from '@/components/ParityBanner';
-import { registerShortcuts } from '@/lib/bootstrap';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/cn';
@@ -47,12 +44,8 @@ function Tile({
   );
 }
 
-export function Glance() {
+export function Today() {
   const { data, error, loading, refresh } = useAgentContext(120_000);
-
-  useEffect(() => {
-    void registerShortcuts();
-  }, []);
 
   const focus = data?.openTasks.filter((t) => t.focus).length ?? 0;
   const open = data?.openTasks.length ?? 0;
@@ -61,9 +54,8 @@ export function Glance() {
   const mood = data?.latestMood ?? null;
 
   return (
-    <div className="app-shell flex h-full flex-col">
-      <TitleBar />
-      <div className="flex-1 space-y-4 overflow-y-auto px-5 pb-4">
+    <div className="flex h-full flex-col">
+      <div className="flex-1 space-y-4 overflow-y-auto px-5 pb-4 pt-2">
         <header className="space-y-0.5">
           <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             {longDate()}

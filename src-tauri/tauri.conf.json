@@ -18,8 +18,8 @@
       {
         "label": "glance",
         "title": "Austin's Deck",
-        "width": 380,
-        "height": 560,
+        "width": 580,
+        "height": 640,
         "resizable": false,
         "visible": false,
         "decorations": false,
