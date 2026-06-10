@@ -1,6 +1,6 @@
 [package]
 name = "personal-dashboard-desktop"
-version = "0.1.1"
+version = "0.2.0"
 description = "Austin's Personal Dashboard — desktop companion"
 authors = ["Austin Coveney"]
 edition = "2021"
@@ -22,6 +22,8 @@ tauri-plugin-global-shortcut = "2"
 tauri-plugin-notification = "2"
 tauri-plugin-positioner = { version = "2", features = ["tray-icon"] }
 tauri-plugin-http = "2"
+tauri-plugin-updater = "2"
+tauri-plugin-process = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }

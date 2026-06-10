@@ -12,6 +12,7 @@ import {
 import type { ComponentType } from 'react';
 import { useEffect } from 'react';
 import { TitleBar } from '@/components/TitleBar';
+import { UpdateBanner } from '@/components/UpdateBanner';
 import { registerShortcuts } from '@/lib/bootstrap';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -68,6 +69,8 @@ export function Glance() {
           </p>
           <h1 className="font-display text-xl tracking-tight">{greeting()}, Austin.</h1>
         </header>
+
+        <UpdateBanner />
 
         {error ? (
           <Card className="space-y-2 border-dashed p-4 text-center">

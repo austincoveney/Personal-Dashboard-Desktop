@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/cn';
 import { DEFAULT_SETTINGS, loadSettings, saveSettings, type Settings as S } from '@/lib/settings';
 import { testConnection } from '@/lib/agent';
+import { checkForUpdate } from '@/lib/updater';
 import { isTauri } from '@/lib/window';
 
 export function Settings() {
@@ -16,6 +17,16 @@ export function Settings() {
     state: 'idle',
     message: '',
   });
+  const [upd, setUpd] = useState<{ busy: boolean; msg: string }>({ busy: false, msg: '' });
+
+  async function checkUpdate() {
+    setUpd({ busy: true, msg: 'Checking…' });
+    const u = await checkForUpdate();
+    setUpd({
+      busy: false,
+      msg: u ? `v${u.version} ready — open the deck to install.` : 'You’re on the latest version.',
+    });
+  }
 
   useEffect(() => {
     void loadSettings().then((s) => {
@@ -120,6 +131,18 @@ export function Settings() {
             className={cn(inputCls, 'font-mono')}
           />
         </Field>
+
+        <div className="space-y-2">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            Updates
+          </p>
+          <div className="flex items-center gap-2">
+            <Button size="sm" variant="secondary" onClick={checkUpdate} disabled={upd.busy}>
+              {upd.busy && <Loader2 className="size-3.5 animate-spin" />} Check for updates
+            </Button>
+            {upd.msg && <span className="text-xs text-muted-foreground">{upd.msg}</span>}
+          </div>
+        </div>
       </div>
 
       <div className="flex items-center justify-end gap-2 border-t border-border px-6 py-3">

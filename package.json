@@ -1,7 +1,7 @@
 {
   "name": "personal-dashboard-desktop",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.2.0",
   "type": "module",
   "packageManager": "pnpm@11.2.2",
   "description": "Austin's Personal Dashboard — Windows desktop companion (Tauri). Tray, quick-capture, morning check-in, glance widget; talks to the live dashboard via the token-authed agent API.",
@@ -24,7 +24,9 @@
     "@tauri-apps/plugin-notification": "^2.2.0",
     "@tauri-apps/plugin-opener": "^2.2.0",
     "@tauri-apps/plugin-positioner": "^2.2.0",
+    "@tauri-apps/plugin-process": "^2.2.0",
     "@tauri-apps/plugin-store": "^2.2.0",
+    "@tauri-apps/plugin-updater": "^2.2.0",
     "lucide-react": "^0.469.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Austin's Deck",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "identifier": "uk.digigrow.austins-deck",
   "build": {
     "beforeDevCommand": "pnpm dev",
@@ -86,6 +86,7 @@
   },
   "bundle": {
     "active": true,
+    "createUpdaterArtifacts": true,
     "targets": ["msi"],
     "category": "Productivity",
     "shortDescription": "Personal Dashboard desktop companion",
@@ -97,5 +98,13 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/austincoveney/Personal-Dashboard-Desktop/releases/latest/download/latest.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY0NEI3NDAyODM1NzlGNUUKUldSZW4xZURBblJMOU9Ed2JHU1ZlbVczUFVGTWM3YXc2TEVoUjMvK2pxcFR6c3hzV0hlYkRUR0YK"
+    }
   }
 }
