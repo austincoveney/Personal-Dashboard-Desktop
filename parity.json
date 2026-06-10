@@ -1,5 +1,5 @@
 {
-  "builtAgainstManifest": "1.0.2",
+  "builtAgainstManifest": "1.0.3",
   "features": {
     "my-day": "full",
     "mood": "full",
@@ -8,7 +8,7 @@
     "life": "partial",
     "fitness": "none",
     "diet": "none",
-    "habits": "partial",
+    "habits": "full",
     "guitar": "none",
     "notes": "partial",
     "achievements": "none",
