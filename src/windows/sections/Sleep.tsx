@@ -15,6 +15,7 @@ export function Sleep() {
   const [note, setNote] = useState('');
   const [history, setHistory] = useState<SleepSummary[]>([]);
   const [busy, setBusy] = useState(false);
+  const [deleting, setDeleting] = useState<Set<number>>(new Set());
   const [err, setErr] = useState<string | null>(null);
 
   async function load() {
@@ -54,12 +55,20 @@ export function Sleep() {
   }
 
   async function remove(id: number) {
+    if (deleting.has(id)) return;
+    setDeleting((s) => new Set(s).add(id));
     setErr(null);
     try {
       await agent.deleteSleep(id);
       await load();
     } catch (e) {
       setErr(e instanceof Error ? e.message : 'Could not delete');
+    } finally {
+      setDeleting((s) => {
+        const next = new Set(s);
+        next.delete(id);
+        return next;
+      });
     }
   }
 
@@ -114,6 +123,7 @@ export function Sleep() {
         <input
           value={note}
           onChange={(e) => setNote(e.target.value)}
+          aria-label="Note (optional)"
           placeholder="Any notes? (optional)"
           className="h-9 w-full rounded-md border border-input bg-surface/50 px-3 text-sm outline-none focus:border-border-strong"
         />
@@ -140,9 +150,10 @@ export function Sleep() {
                 )}
                 <button
                   type="button"
+                  disabled={deleting.has(s.id)}
                   onClick={() => void remove(s.id)}
                   aria-label={`Delete ${shortNight(s.on)}`}
-                  className="no-drag shrink-0 text-muted-foreground opacity-0 transition-opacity hover:text-destructive group-hover:opacity-100"
+                  className="no-drag shrink-0 text-muted-foreground opacity-0 transition-opacity hover:text-destructive group-hover:opacity-100 disabled:opacity-50"
                 >
                   <Trash2 className="size-3.5" />
                 </button>
