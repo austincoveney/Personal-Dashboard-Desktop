@@ -46,3 +46,21 @@ jobs:
           releaseBody: "Windows installer (.exe) is attached below under Assets. Download, run, then open Settings and paste your dashboard URL + AGENT_API_TOKEN."
           releaseDraft: false
           prerelease: false
+
+      - name: Generate and upload latest.json (updater manifest)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TAG="${{ github.ref_name }}"
+          VERSION="${TAG#v}"
+          SIG_FILE="$(find src-tauri/target/release/bundle/msi -name '*.msi.sig' | head -n1)"
+          SIG="$(cat "$SIG_FILE")"
+          MSI_URL="$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets \
+            --jq '[.assets[] | select(.name | endswith(".msi"))][0].url')"
+          PUB_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          jq -n --arg v "$VERSION" --arg d "$PUB_DATE" --arg s "$SIG" --arg u "$MSI_URL" \
+            '{version:$v, pub_date:$d, platforms:{"windows-x86_64":{signature:$s, url:$u}}}' > latest.json
+          echo "--- latest.json ---"; cat latest.json
+          gh release upload "$TAG" latest.json --repo "$GITHUB_REPOSITORY" --clobber
