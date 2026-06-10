@@ -1,7 +1,7 @@
 {
-  "builtAgainstManifest": "1.0.0",
+  "builtAgainstManifest": "1.0.1",
   "features": {
-    "my-day": "partial",
+    "my-day": "full",
     "mood": "partial",
     "tasks": "partial",
     "journal": "none",
