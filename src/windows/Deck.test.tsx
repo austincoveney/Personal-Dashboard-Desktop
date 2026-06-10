@@ -23,4 +23,10 @@ describe('Deck', () => {
     expect(screen.getByText('Notes', { selector: 'p.font-display' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: /Austin\./ })).not.toBeInTheDocument();
   });
+
+  it('renders the Mood section when Mood is selected', async () => {
+    render(<Deck />);
+    await userEvent.click(screen.getByRole('button', { name: 'Mood' }));
+    expect(screen.getByRole('heading', { name: 'Log a mood' })).toBeInTheDocument();
+  });
 });
